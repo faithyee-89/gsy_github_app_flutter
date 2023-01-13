@@ -1,7 +1,6 @@
 class Config {
+  // 默认debug为true
   static bool? DEBUG = true;
-
-
 
   static const PAGE_SIZE = 20;
 

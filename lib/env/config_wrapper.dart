@@ -4,6 +4,9 @@ import 'package:gsy_github_app_flutter/env/env_config.dart';
 
 ///往下共享环境配置
 class ConfigWrapper extends StatelessWidget {
+  final EnvConfig? config;
+  final Widget? child;
+
   ConfigWrapper({Key? key, this.config, this.child});
 
   @override
@@ -19,19 +22,15 @@ class ConfigWrapper extends StatelessWidget {
         context.dependOnInheritedWidgetOfExactType<_InheritedConfig>()!;
     return inheritedConfig.config;
   }
-
-  final EnvConfig? config;
-
-  final Widget? child;
 }
 
 class _InheritedConfig extends InheritedWidget {
-  const _InheritedConfig(
-      {required this.config, required super.child});
-
   final EnvConfig? config;
+
+  _InheritedConfig({required this.config, required super.child});
 
   @override
   bool updateShouldNotify(_InheritedConfig oldWidget) =>
+      // InheritedWidget特性，state改变会触发notify，当属性配置有的的话
       config != oldWidget.config;
 }

@@ -23,10 +23,25 @@ import 'package:gsy_github_app_flutter/common/net/code.dart';
 import 'common/event/index.dart';
 import 'common/utils/navigator_utils.dart';
 
+/**
+ * 总app的入口
+ */
 class FlutterReduxApp extends StatefulWidget {
   @override
-  _FlutterReduxAppState createState() => _FlutterReduxAppState();
+  State<StatefulWidget> createState() {
+    // return MyState();
+    return _FlutterReduxAppState();
+  }
+  // @override
+  // _FlutterReduxAppState createState() => _FlutterReduxAppState();
 }
+
+// class MyState extends State<StatefulWidget> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new StoreProvider(store: store, child: child)
+//   }
+// }
 
 class _FlutterReduxAppState extends State<FlutterReduxApp>
     with HttpErrorListener, NavigatorObserver {
@@ -47,12 +62,27 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
   );
 
   ColorFilter greyscale = ColorFilter.matrix(<double>[
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0,      0,      0,      1, 0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
-
 
   @override
   void initState() {
@@ -78,7 +108,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
         store.state.platformLocale = WidgetsBinding.instance.window.locale;
         Widget app = new MaterialApp(
 
-          ///多语言实现代理
+            ///多语言实现代理
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -127,6 +157,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
           app = ColorFiltered(
               colorFilter: ColorFilter.mode(Colors.grey, BlendMode.saturation),
               child: app);
+
           ///mode tow
           // app = ColorFiltered(
           //     colorFilter: greyscale,
@@ -185,11 +216,11 @@ mixin HttpErrorListener on State<FlutterReduxApp> {
         showToast(GSYLocalizations.i18n(_context)!.network_error_422);
         break;
       case Code.NETWORK_TIMEOUT:
-      //超时
+        //超时
         showToast(GSYLocalizations.i18n(_context)!.network_error_timeout);
         break;
       case Code.GITHUB_API_REFUSED:
-      //Github API 异常
+        //Github API 异常
         showToast(GSYLocalizations.i18n(_context)!.github_refused);
         break;
       default:

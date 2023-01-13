@@ -13,14 +13,18 @@ void main() {
   runZonedGuarded(() {
     ErrorWidget.builder = (FlutterErrorDetails details) {
       Zone.current.handleUncaughtError(details.exception, details.stack!);
+
       ///此处仅为展示，正规的实现方式参考 _defaultErrorWidgetBuilder 通过自定义 RenderErrorBox 实现
       return ErrorPage(
-          details.exception.toString() + "\n " + details.stack.toString(), details);
+          details.exception.toString() + "\n " + details.stack.toString(),
+          details);
     };
+    // 总体来说，入口就是需要包含一个全局的config
     runApp(ConfigWrapper(
       child: FlutterReduxApp(),
       config: EnvConfig.fromJson(config),
     ));
+
     ///屏幕刷新率和显示率不一致时的优化，必须挪动到 runApp 之后
     GestureBinding.instance.resamplingEnabled = true;
   }, (Object obj, StackTrace stack) {
